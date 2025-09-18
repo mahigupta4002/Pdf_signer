@@ -1,0 +1,23 @@
+<!-- <!DOCTYPE html>
+<html>
+<head><title>Upload PDF</title></head>
+<body>
+  <h2>Upload a PDF</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <input type="file" name="pdf" accept=".pdf" required><br><br>
+    <button type="submit">Upload</button>
+  </form>
+  <p><a href="{{ url_for('user_dashboard') }}">Back to Dashboard</a></p>
+</body>
+</html> -->
+{% extends "base.html" %}
+{% block content %}
+<h3>Upload a PDF</h3>
+<form method="POST" enctype="multipart/form-data" class="mt-3">
+  <div class="mb-3">
+    <input type="file" name="pdf" accept=".pdf" class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Upload</button>
+  <a href="{{ url_for('user_dashboard') }}" class="btn btn-secondary">Back</a>
+</form>
+{% endblock %}

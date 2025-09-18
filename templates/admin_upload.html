@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <h3>Admin Upload & Sign</h3>
+  <form method="POST" enctype="multipart/form-data" class="mt-3">
+    <div class="mb-3">
+      <label class="form-label">Choose PDF to upload & sign</label>
+      <input type="file" name="pdf" accept=".pdf" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Upload & Sign</button>
+    <a href="{{ url_for('admin_panel') }}" class="btn btn-secondary">Back</a>
+  </form>
+</div>
+{% endblock %}

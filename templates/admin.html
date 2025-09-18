@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <h2 class="mb-4">Admin Panel</h2>
+
+  <p class="mb-3">
+    <a href="{{ url_for('admin_settings') }}" class="btn btn-info">Settings</a>
+    <a href="{{ url_for('admin_upload_pdf') }}" class="btn btn-primary">Upload & Sign PDF</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+  </p>
+
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr><th>ID</th><th>User</th><th>PDF</th><th>Status</th><th>Signed</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      {% for r in requests %}
+      <tr>
+        <td>{{ r["id"] }}</td>
+        <td>{{ r["username"] }}</td>
+        <td>{{ r["pdf_path"].split('/')[-1] }}</td>
+        <td>
+          {% if r["status"] == "pending" %}<span class="badge bg-warning">Pending</span>
+          {% elif r["status"] == "approved" %}<span class="badge bg-success">Approved</span>
+          {% else %}<span class="badge bg-danger">Rejected</span>{% endif %}
+        </td>
+        <td>{{ r["signed_path"].split('/')[-1] if r["signed_path"] else "-" }}</td>
+        <td>
+          <a href="{{ url_for('admin_view_pdf', req_id=r['id']) }}" class="btn btn-sm btn-outline-primary">View</a>
+          {% if r["status"] == "pending" %}
+            <a href="{{ url_for('approve', req_id=r['id']) }}" class="btn btn-sm btn-success">Approve</a>
+            <a href="{{ url_for('reject', req_id=r['id']) }}" class="btn btn-sm btn-danger">Reject</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
+
+
+
